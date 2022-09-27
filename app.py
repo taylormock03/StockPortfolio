@@ -1,4 +1,6 @@
 from flask import Flask
+from Lib.portfolio import Portfolio
+import json
 
 app = Flask(__name__)
 
