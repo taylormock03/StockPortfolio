@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    
+
+    <h1>{% block title %} Portfolios {% endblock %}</h1>
+    {% for portfolio in portfolios %}
+        <div class='portfolioList'>
+            <h3>{{portfolio.name}}</h3>
+            <p>{{portfolio.money}}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
