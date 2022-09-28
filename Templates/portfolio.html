@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="header">
+        <h1>{% block title %} {{portfolio.name}} {% endblock %}</h1>
+        <h2> ${{portfolio.money}}</p>
+    </div>
+    
+    {%for stock, values in portfolio.stocks.items()%}
+    <div class = "list">
+        
+        <h1>{{stock}}: ${{getStockTotal(portfolio=portfolio, name=stock)}}</h1>
+        <p>{{values}}</p>
+
+    </div>
+    {% endfor %}
+    
+
+
+
+{% endblock %}

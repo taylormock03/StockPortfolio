@@ -15,7 +15,7 @@ class Portfolio:
     # Grab an existing portfolio from the portfolios folder
     def loadPortfolio(self,name):
         try:
-            with open("Portfolios/" + name + ".json", 'r') as x:
+            with open("Portfolios/" + name, 'r') as x:
                 dict = json.load(x)
 
                 self.name = dict["name"]
@@ -38,3 +38,8 @@ class Portfolio:
             return True
         except:
             return False
+
+    def getStockTotal(self, name):
+        print("true")
+        return 1
+

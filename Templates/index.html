@@ -6,9 +6,10 @@
 
     <h1>{% block title %} Portfolios {% endblock %}</h1>
     {% for portfolio in portfolios %}
-        <div class='portfolioList'>
+        <div class='list'>
             <h3>{{portfolio.name}}</h3>
             <p>{{portfolio.money}}</p>
+            <a href="{{ url_for('portfolioOverview', portfolio=portfolio.name) }}">Select</a>
         </div>
     {% endfor %}
 {% endblock %}
