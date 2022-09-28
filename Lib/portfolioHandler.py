@@ -14,3 +14,10 @@ def loadPortfolio(x):
     a.loadPortfolio(x)
     return a
     
+def getPortfolioNames():
+    portfolios = loadAllPortfolios()
+    names = []
+    for x in portfolios:
+        names.append(x.name)
+
+    return names

@@ -1,4 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
+    <div class="header">
+        <h1>{% block title %} Create a portfolio {% endblock %}</h1>
+    </div>
 
+    {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+
+    <form method = "post">
+        <label for="portfolio">Name of Portfolio</label>
+        <br>
+        <input type="text" name="name"
+        placeholder="Portfolio Name"
+        value="{{request.form['name']}}"></input>
+
+        <br><br>
+
+        <label for="money">Starting Amount of Money</label>
+        <br>
+        $<input type="text" name="money"
+        placeholder="0"
+        value="{{request.form['money']}}"></input>
+
+        <br>
+        <button type="submit">Create!</button>
+    </form>
 {% endblock %}
