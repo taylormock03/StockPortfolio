@@ -6,14 +6,24 @@
         <h2> ${{portfolio.money}}</p>
     </div>
     
-    {%for stock, values in portfolio.stocks.items()%}
+    {%for stock in portfolio.stocks%}
     <div class = "list">
         
-        <h1>{{stock}}: ${{getStockTotal(portfolio=portfolio, name=stock)}}</h1>
-        <p>{{values}}</p>
+        <h1>{{stock.fullName}}: ${{getStockTotal(stock=stock)}}</h1>
+        {% for purchase in stock.values.keys() %}
+        <div class="list">
+            <h2>{{purchase}}</h2>
+            <p> quantity bought:</p>
+            <p> {{stock.values[purchase]['qty']}}</p>
+            <p> value bought at:</p>
+            <p> ${{stock.values[purchase]['price']}}</p>
+        </div>
+        {% endfor %}
 
     </div>
     {% endfor %}
+
+    <a href="{{ url_for('addStock', portfolio=portfolio.name) }}"> ADD STOCK</a>
     
 
 

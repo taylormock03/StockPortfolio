@@ -47,14 +47,38 @@ def create():
 
 # This will delete any portfolio
 @app.route('/delete/<portfolio>')
-def delete(portfolio):
+def deletePortfolio(portfolio):
     os.remove('Portfolios/'+portfolio+'.json')
     return redirect(url_for('index'))
-    
+
+@app.route('/add/<portfolio>', methods = ('GET', 'POST'))
+def addStock(portfolio):
+    portfolio = loadPortfolio(portfolio + ".json")
+
+    if request.method=="POST":
+        stock = request.form['stock']
+        qty = request.form['qty']
+
+        if not stock:
+            flash("A Stock Name is Required!")
+        elif not qty:
+            flash("Please Specify how many shares you wish to buy")
+        elif not qty.isnumeric():
+            flash('Quantity must be a number!')
+        else:
+            portfolio.addStock(stock, int(qty))
+            return redirect(url_for('portfolioOverview', portfolio=portfolio.name))
+
+
+    return render_template('addStock.html', portfolio=portfolio)
+
 
 # running my methods in the Portfolio class
-def getStockTotal(portfolio, name):
-    return portfolio.getStockTotal(name)
+def getStockTotal(stock):
+
+    return stock.getStockTotal()
+
+
 app.jinja_env.globals.update(getStockTotal=getStockTotal)
 
 

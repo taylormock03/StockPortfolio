@@ -1,6 +1,7 @@
 import os
 
 from Lib.portfolio import Portfolio
+from Lib.stock import Stock
 
 def loadAllPortfolios():
     portfolios = []
@@ -21,3 +22,4 @@ def getPortfolioNames():
         names.append(x.name)
 
     return names
+

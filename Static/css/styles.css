@@ -14,3 +14,9 @@ p.list{
     color: #970020;
     background-color: #ffd5de;
 }
+
+a {
+    padding: 0px 10px;
+    word-wrap: normal;
+    display: inline-block;
+  }

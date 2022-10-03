@@ -9,8 +9,9 @@
         <div class='list'>
             <h3>{{portfolio.name}}</h3>
             <p>{{portfolio.money}}</p>
+
             <a href="{{ url_for('portfolioOverview', portfolio=portfolio.name) }}">Select</a>
-            <a href="{{ url_for('delete', portfolio=portfolio.name) }}">Select</a>
+            <a href="{{ url_for('deletePortfolio', portfolio=portfolio.name) }}">Delete</a>
         </div>
     {% endfor %}
 {% endblock %}
