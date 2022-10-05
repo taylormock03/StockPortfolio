@@ -54,7 +54,10 @@ class Portfolio:
 
         return stockList
 
-    def addStock(self, stockName, qty):
+    def addStock(self, stockName, stockCode, qty, price):
+        # remove the cost of the stock from money
+        self.money -= price*qty
+
         # check if a stock already exists in portfolio
         for stock in self.stocks:
             if stock.fullName == stockName:
@@ -63,6 +66,6 @@ class Portfolio:
                 return
         # if it doesn't add it here
         print('empty')
-        self.stocks.append(Stock("test", stockName, qty, 123))
+        self.stocks.append(Stock(stockCode, stockName, qty, price))
         self.savePortfolio()
 

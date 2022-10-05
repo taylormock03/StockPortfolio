@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="header">
+        <h1>{% block title %} Buying a stock for {{portfolio.name}} {% endblock %}</h1>
+    </div>
+
+    {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+
+    <form method = "post">
+        <label for="stock">Code of Stock</label>
+        <br>
+        <input type="text" name="stock"
+        placeholder="Stock Code"
+        value="{{request.form['stock']}}"></input>
+
+        <button type="submit">Check Stock!</button>
+    </form>
+{% endblock %}

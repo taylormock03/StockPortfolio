@@ -7,23 +7,17 @@
     {% for message in get_flashed_messages() %}
             <div class="alert">{{ message }}</div>
         {% endfor %}
-
+    <h1>{{name}}</h1>
+    <h2>${{price}} per share</h2>
     <form method = "post">
-        <label for="stock">Name of Stock</label>
-        <br>
-        <input type="text" name="stock"
-        placeholder="Name of Stock"
-        value="{{request.form['stock']}}"></input>
-
-        <br><br>
 
         <label for="qty">Qty you wish to buy</label>
         <br>
-        $<input type="text" name="qty"
+        <input type="text" name="qty"
         placeholder="0"
         value="{{request.form['qty']}}"></input>
 
         <br>
-        <button type="submit">Create!</button>
+        <button type="submit">Buy!</button>
     </form>
 {% endblock %}

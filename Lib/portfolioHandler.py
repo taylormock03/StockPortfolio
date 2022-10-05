@@ -23,3 +23,5 @@ def getPortfolioNames():
 
     return names
 
+def calculateCost(price, qty):
+    return 

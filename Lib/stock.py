@@ -1,5 +1,7 @@
 from datetime import date
 
+from Lib.stockDataScraper import getPrice
+
 
 class Stock:
     code = ""
@@ -32,7 +34,12 @@ class Stock:
 
     # STUB PROGRAM - GIVE VALUES LATER
     def getStockTotal(self):
-        return 1
+        totalQty = 0
+        for purchase in self.values:
+            print(purchase)
+            totalQty += self.values[purchase]['qty']
+        price = getPrice(self.code)
+        return totalQty * price
 
     def addPurchase(self, qty, price = 0):
         try:
