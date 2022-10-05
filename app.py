@@ -53,7 +53,7 @@ def deletePortfolio(portfolio):
     return redirect(url_for('index'))
 
 # This page will get the code of the stock we are adding
-@app.route('/add/<portfolio>', methods = ('GET', 'POST'))
+@app.route('/buy/<portfolio>', methods = ('GET', 'POST'))
 def addStockCode(portfolio):
     portfolio = loadPortfolio(portfolio + ".json")
 
@@ -72,7 +72,7 @@ def addStockCode(portfolio):
     return render_template('stockCode.html', portfolio=portfolio)
 
 # If the previous function found a stock with matching code, 
-@app.route('/add/<portfolio>/<code>', methods = ('GET', 'POST'))
+@app.route('/buy/<portfolio>/<code>', methods = ('GET', 'POST'))
 def addStockQty(portfolio, code):
     portfolio = loadPortfolio(portfolio + ".json")
     price = getPrice(code)
@@ -100,13 +100,47 @@ def addStockQty(portfolio, code):
     return render_template('stockQty.html', portfolio=portfolio, name = name, price = price)
 
 
+@app.route('/sell/<portfolio>/<code>', methods = ('GET', 'POST'))
+def sellStock(portfolio, code):
+    portfolio = loadPortfolio(portfolio + ".json")
+    price = getPrice(code)
+    name = portfolio.getStockName(code)
+
+    if request.method=="POST":
+        
+        qty = request.form['qty']
+
+        if not qty:
+            flash("Please Specify how many shares you wish to sell")
+
+        elif not qty.isnumeric():
+            flash('Quantity must be a full number greater than 0!')
+            
+        elif int(qty) > portfolio.getStockQty(code) :
+            flash('You do not have that many shares of this stock!')
+        
+        else:
+            qty = int(qty)
+            portfolio.sellStock(code, qty, price)
+            return redirect(url_for('portfolioOverview', portfolio=portfolio.name))
+
+
+    return render_template('stockQty.html', portfolio=portfolio, name = name, price = price)
+
+
+
+
 # running my methods in the Portfolio class
 def getStockTotal(stock):
 
     return stock.getStockTotal()
 
+def getStockQty(stock):
 
-app.jinja_env.globals.update(getStockTotal=getStockTotal)
+    return stock.getStockQty()
+
+
+app.jinja_env.globals.update(getStockTotal=getStockTotal, getStockQty=getStockQty, reversed=reversed)
 
 
 

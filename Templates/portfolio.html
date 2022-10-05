@@ -10,16 +10,22 @@
     <div class = "list">
         
         <h1>{{stock.fullName}}: ${{getStockTotal(stock=stock)}}</h1>
-        {% for purchase in stock.values.keys() %}
+        <h2> Number of shares owned: {{getStockQty(stock=stock)}}</h2>
+        {% for purchase in reversed(stock.values.keys()) %}
         <div class="list">
             <h2>{{purchase}}</h2>
             <p> quantity bought:</p>
             <p> {{stock.values[purchase]['qty']}}</p>
+            {% if stock.values[purchase]['price'] >0 %}
             <p> value bought at:</p>
+            {% else %}
+            <p> value sold at:</p>
+            {% endif %}
             <p> ${{stock.values[purchase]['price']}}</p>
         </div>
         {% endfor %}
-
+        <a href="{{ url_for('addStockQty', portfolio=portfolio.name, code=stock.code) }}">Buy Stock</a>
+        <a href="{{ url_for('sellStock', portfolio=portfolio.name, code=stock.code) }}">Sell Stock</a>
     </div>
     {% endfor %}
 

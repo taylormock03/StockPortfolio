@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 
 from Lib.stockDataScraper import getPrice
 
@@ -17,7 +17,7 @@ class Stock:
         valueDict = {}
         valueDict['qty'] = qty
         valueDict['price'] = price
-        self.values[str(date.today())]= valueDict 
+        self.values[str(datetime.now())]= valueDict 
         
     
     def save(self):
@@ -32,7 +32,6 @@ class Stock:
         self.fullName = dict['fullName']
         self.values = dict['values']
 
-    # STUB PROGRAM - GIVE VALUES LATER
     def getStockTotal(self):
         totalQty = 0
         for purchase in self.values:
@@ -41,9 +40,26 @@ class Stock:
         price = getPrice(self.code)
         return totalQty * price
 
-    def addPurchase(self, qty, price = 0):
+    def addPurchase(self, qty, price):
+        # If a purchase was already performed at the same time (very unlikely)
         try:
-            self.values[str(date.today())]['qty'] +=qty
-            
+            self.values[str(datetime.now())]['qty'] +=qty
+        # Adding a new log to the stock history
         except:
-            self.values[str(date.today())] = {'qty': qty, 'price': price}
+            self.values[str(datetime.now())] = {'qty': qty, 'price': price}
+
+    def addSale(self, qty, price):
+        # If a purchase was already performed at the same time (very unlikely)
+        try:
+            self.values[str(datetime.now())]['qty'] -=qty
+        # Adding a new log to the stock history
+        except:
+            self.values[str(datetime.now())] = {'qty': -(qty), 'price': -(price)}
+
+    def getStockQty(self):
+        totalQty = 0
+        for purchase in self.values:
+            print(purchase)
+            totalQty += self.values[purchase]['qty']
+        return totalQty
+

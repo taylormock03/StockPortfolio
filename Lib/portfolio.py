@@ -61,11 +61,28 @@ class Portfolio:
         # check if a stock already exists in portfolio
         for stock in self.stocks:
             if stock.fullName == stockName:
-                stock.addPurchase(qty)
+                stock.addPurchase(qty, price)
                 self.savePortfolio()
                 return
-        # if it doesn't add it here
-        print('empty')
+
+        # if it doesn't exist add it here
         self.stocks.append(Stock(stockCode, stockName, qty, price))
         self.savePortfolio()
 
+    def sellStock(self, stockCode, qty, price):
+        self.money += price * qty
+        for stock in self.stocks:
+            if stock.code == stockCode:
+                stock.addSale(qty, price)
+                self.savePortfolio()
+                return
+
+    def getStockName(self, code):
+        for x in self.stocks:
+            if x.code == code:
+                return x.fullName
+
+    def getStockQty(self, code): 
+        for x in self.stocks:
+            if x.code == code:
+                return x.getStockQty()
