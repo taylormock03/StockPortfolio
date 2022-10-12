@@ -7,7 +7,8 @@
     </div>
     
     {%for stock in portfolio.stocks%}
-    <div class = "list">
+    <button type="button" class="collapsible">{{stock.fullName}}: ${{getStockTotal(stock=stock)}}</button>
+    <div class = "content">
         
         <h1>{{stock.fullName}}: ${{getStockTotal(stock=stock)}}</h1>
         <h2> Number of shares owned: {{getStockQty(stock=stock)}}</h2>
@@ -31,7 +32,23 @@
 
     <a href="{{ url_for('addStockCode', portfolio=portfolio.name) }}"> ADD STOCK</a>
     
+<script>
 
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+        content.style.display = "none";
+        } else {
+        content.style.display = "block";
+        }
+    });
+    }
+</script>
 
 
 {% endblock %}
